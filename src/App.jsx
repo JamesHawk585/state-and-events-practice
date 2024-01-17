@@ -1,38 +1,35 @@
+import { toHaveFormValues } from "@testing-library/jest-dom/matchers";
 import "./App.css";
+import React, { useState } from "react";
 
-const handleFormSubmit = (e) => {
-  e.preventDefault();
-  console.log(e)
-};
-
-const handleButtonClick = (event) => {
-  console.log("in handleButtonClick: ", event);
-};
-
-const handleInputChange = (event) => {
-  console.log("In handleInputChange: ", event);
-};
+/* 
+1. Hooks can only be used in functional compnents
+2. Hooks must alwasy excecute int eh same order
+3. Hooks cannot be in loops, if statements, or functions, and must be in       global scope.
+4. useState alwasy returns an array with two toHaveFormValues, the stateful variable and a function to update the stateful varibale. 
+*/
 
 function App() {
+  const [count, setCount] = useState(initialCount);
+
+  function initialCount() {
+    return 4
+  }
+
+  const handleCountIncrament = (e) => {
+    return setCount(count => count + 1);
+  };
+
+  const handleCountDecrement = (e) => {
+    return setCount(count => count - 1);
+  };
+
   return (
-    <div>
-      <h1>React Events</h1>
-      <button onClick={(event) => handleButtonClick(event)}>Click Me!</button>
-      <form type="submit" onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          placeholder="sample text"
-          onChange={(event) => handleInputChange(event)}
-        />
-        <select>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-        </select>
-        <button>
-          Submit form
-        </button>
-      </form>
-    </div>
+    <>
+      <button onClick={handleCountDecrement}>-</button>
+      <span>{count}</span>
+      <button onClick={handleCountIncrament}>+</button>
+    </>
   );
 }
 
